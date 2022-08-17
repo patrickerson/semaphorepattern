@@ -42,7 +42,7 @@ public class Counter extends Thread {
 
     public void run(){
         int operations = 0;
-        while (true){
+        while (operations<100){
             operations++;
 
             try {

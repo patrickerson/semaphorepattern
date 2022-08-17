@@ -40,7 +40,8 @@ public class Generator extends Thread {
 
     public void run(){
         int operations = 0;
-        while (true){
+        while (operations<100){
+            operations++;
             try {
                 semaphore1.acquire();
                 createString();

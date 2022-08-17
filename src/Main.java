@@ -6,12 +6,13 @@ public class Main {
         int[] text = new int[10];
         int[] textReady = new int[10];
         Semaphore s1 = new Semaphore(1);
-        Semaphore s2 = new Semaphore(1);
-        Semaphore s3 = new Semaphore(0);
+        Semaphore s2 = new Semaphore(0);
+        Semaphore s3 = new Semaphore(1);
+        Semaphore s4 = new Semaphore(0);
 
         Generator generator = new Generator(text, s1, s2);
-        Standardize standardize = new Standardize(text, textReady, s1, s2, s3);
-        Counter counter = new Counter(textReady, s2, s3);
+        Standardize standardize = new Standardize(text, textReady, s1, s2, s3, s4);
+        Counter counter = new Counter(textReady, s4, s3);
 
         generator.start();
         standardize.start();
@@ -26,6 +27,8 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+
+        System.out.println("FIM DO PROGRAMA");
 
 
     }
