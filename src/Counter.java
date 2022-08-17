@@ -6,10 +6,12 @@ public class Counter extends Thread {
     int[] word;
     public Semaphore semaphore2;
     public Semaphore semaphore3;
-    Counter(int[] word, Semaphore semaphore2, Semaphore semaphore3){
+    int maxOperations;
+    Counter(int[] word, Semaphore semaphore2, Semaphore semaphore3, int maxOperations){
         this.word = word;
         this.semaphore2 = semaphore2;
         this.semaphore3 = semaphore3;
+        this.maxOperations = maxOperations;
     }
     boolean isVocal(int character){
         for (int i:
@@ -42,14 +44,14 @@ public class Counter extends Thread {
 
     public void run(){
         int operations = 0;
-        while (operations<100){
-            operations++;
+        while (operations<maxOperations){
+
 
             try {
                 semaphore3.acquire();
                 print_result();
                 semaphore2.release();
-
+                operations++;
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

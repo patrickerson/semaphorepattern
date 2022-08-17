@@ -8,10 +8,12 @@ public class Generator extends Thread {
     public int[] text;
     public Semaphore semaphore1;
     public Semaphore semaphore2;
-    Generator(int[] text, Semaphore semaphore1,Semaphore semaphore2 ){
+    int maxOperations;
+    Generator(int[] text, Semaphore semaphore1,Semaphore semaphore2, int maxOperations ){
         this.text = text;
         this.semaphore1 = semaphore1;
         this.semaphore2 = semaphore2;
+        this.maxOperations = maxOperations;
     }
     void createString(){
         Random r = new Random();
@@ -40,8 +42,8 @@ public class Generator extends Thread {
 
     public void run(){
         int operations = 0;
-        while (operations<100){
-            operations++;
+        while (operations<maxOperations){
+
             try {
                 semaphore1.acquire();
                 createString();

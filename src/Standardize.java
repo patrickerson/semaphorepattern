@@ -11,13 +11,15 @@ public class Standardize extends Thread{
     public Semaphore semaphore2;
     public Semaphore semaphore3;
     public Semaphore semaphore4;
-    Standardize(int[] text, int[] textReady, Semaphore semaphore1, Semaphore semaphore2, Semaphore semaphore3, Semaphore semaphore4){
+    int maxOperations;
+    Standardize(int[] text, int[] textReady, Semaphore semaphore1, Semaphore semaphore2, Semaphore semaphore3, Semaphore semaphore4, int maxOperations){
         this.text = text;
         this.textReady = textReady;
         this.semaphore1 = semaphore1;
         this.semaphore2 = semaphore2;
         this.semaphore3 = semaphore3;
         this.semaphore4 = semaphore4;
+        this.maxOperations = maxOperations;
     }
     boolean lowerAlphabeticCharacter(int unicodeCharacter){
         return asciiMinValueLower <= unicodeCharacter && unicodeCharacter <= asciiMaxValueLower;
@@ -37,8 +39,8 @@ public class Standardize extends Thread{
 
     public void run(){
         int operations = 0;
-        while (operations<100){
-            operations++;
+        while (operations<maxOperations){
+
 
             try {
 
@@ -47,7 +49,7 @@ public class Standardize extends Thread{
                 standardizeText();
                 semaphore3.release();
                 semaphore1.release();
-
+                operations++;
 
 
             } catch (InterruptedException e) {
